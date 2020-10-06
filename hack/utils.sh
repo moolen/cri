@@ -23,7 +23,7 @@ CRITOOL_PKG=github.com/kubernetes-sigs/cri-tools
 CRITOOL_REPO=github.com/kubernetes-sigs/cri-tools
 
 # VENDOR is the path to vendor.conf.
-VENDOR=${VENDOR:-"${ROOT}/vendor.conf"}
+VENDOR=${VENDOR:-"${ROOT}/go.mod"}
 
 # upload_logs_to_gcs uploads test logs to gcs.
 # Var set:
@@ -92,7 +92,7 @@ from-vendor() {
                  ' $vendor)
     if [ $? -ne 0 ] ; then
         echo "failed to get version of $repo from $vendor" >&2
-        exit 1
+        #exit 1
     fi
     eval $setvars
 }
