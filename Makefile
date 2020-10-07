@@ -36,7 +36,7 @@ endif
 export BUILDTAGS := $(BUILD_TAGS)
 # Add `-TEST` suffix to indicate that all binaries built from this repo are for test.
 GO_LDFLAGS := -X $(PROJECT)/vendor/github.com/containerd/containerd/version.Version=$(VERSION)-TEST
-SOURCES := $(shell find cmd/ pkg/ vendor/ -name '*.go')
+SOURCES := $(shell find cmd/ pkg/ -name '*.go')
 PLUGIN_SOURCES := $(shell ls *.go)
 INTEGRATION_SOURCES := $(shell find integration/ -name '*.go')
 
@@ -62,23 +62,6 @@ lint:
 gofmt:
 	@echo "$(WHALE) $@"
 	@./hack/verify-gofmt.sh
-
-check-vendor:
-	@echo "$(WHALE) $@"
-	@./hack/verify-vendor.sh
-
-.PHONY: sort-vendor sync-vendor update-vendor
-
-sort-vendor:
-	@echo "$(WHALE) $@"
-	@./hack/sort-vendor.sh
-
-sync-vendor:
-	@echo "$(WHALE) $@ from containerd"
-	@./hack/sync-vendor.sh
-
-update-vendor: sync-vendor sort-vendor ## Syncs containerd/vendor.conf -> vendor.conf and sorts vendor.conf
-	@echo "$(WHALE) $@"
 
 $(BUILD_DIR)/$(CONTAINERD_BIN): $(SOURCES) $(PLUGIN_SOURCES)
 	@echo "$(WHALE) $@"
@@ -218,5 +201,4 @@ install.tools: .install.gitvalidation .install.golangci-lint .install.vndr ## in
 	test-e2e-node \
 	uninstall \
 	version \
-	proto \
-	check-vendor
+	proto

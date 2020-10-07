@@ -23,7 +23,7 @@ CRITOOL_PKG=github.com/kubernetes-sigs/cri-tools
 CRITOOL_REPO=github.com/kubernetes-sigs/cri-tools
 
 # VENDOR is the path to vendor.conf.
-VENDOR=${VENDOR:-"${ROOT}/vendor.conf"}
+VENDOR=${VENDOR:-"${ROOT}/go.mod"}
 
 # upload_logs_to_gcs uploads test logs to gcs.
 # Var set:

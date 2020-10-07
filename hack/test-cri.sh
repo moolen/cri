@@ -48,8 +48,10 @@ fi
 
 # Install critest
 if [ ! -x "$(command -v ${CRITEST})" ]; then
-  go get -d ${CRITOOL_PKG}/...
-  cd ${GOPATH}/src/${CRITOOL_PKG}
+  # avoid using go get (it modifies go.mod)
+  critest_repo=$(mktemp -d)
+  cd ${critest_repo}
+  git clone https://${CRITOOL_PKG} .
   git fetch --all
   git checkout ${CRITOOL_VERSION}
   make critest
